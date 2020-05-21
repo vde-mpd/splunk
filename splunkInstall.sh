@@ -19,9 +19,9 @@ select os in Debian_Ubuntu RHEL_CentOS; do
 				;;
 	    RHEL_CentOS)
 	    	echo $os
-	    		gsutil cp gs://vde-lh-storage/splunkforwarder-8.0.3-a6754d8441bf-linux-2.6-x86_64.rpm /opt/
-				chmod a+x /opt/splunkforwarder-8.0.3-a6754d8441bf-linux-2.
-				6-x86_64.rpm
+	    		wget -O splunkforwarder-8.0.3-a6754d8441bf-linux-2.6-x86_64.rpm 'https://www.splunk.com/bin/splunk/DownloadActivityServlet?architecture=x86_64&platform=linux&version=8.0.3&product=universalforwarder&filename=splunkforwarder-8.0.3-a6754d8441bf-linux-2.6-x86_64.rpm&wget=true'
+				mv ./splunkforwarder-8.0.3-a6754d8441bf-linux-2.6-x86_64.rpm /opt/
+				chmod a+x /opt/splunkforwarder-8.0.3-a6754d8441bf-linux-2.6-x86_64.rpm
 				rpm -Uvh /opt/splunkforwarder-8.0.3-a6754d8441bf-linux-2.6-x86_64.rpm
 				/opt/splunkforwarder/bin/splunk enable boot-start --accept-license
 				echo "[tcpout]
