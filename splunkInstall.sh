@@ -4,7 +4,7 @@ select os in Debian_Ubuntu RHEL_CentOS; do
 	case $os in
 	    Debian_Ubuntu)
 	    	echo $os
-				gsutil cp gs://vde-lh-storage/splunkforwarder-8.0.3-a6754d8441bf-linux-2.6-amd64.deb /opt/
+				wget -O splunkforwarder-8.0.3-a6754d8441bf-linux-2.6-amd64.deb 'https://www.splunk.com/bin/splunk/DownloadActivityServlet?architecture=x86_64&platform=linux&version=8.0.3&product=universalforwarder&filename=splunkforwarder-8.0.3-a6754d8441bf-linux-2.6-amd64.deb&wget=true' /opt/
 				chmod a+x /opt/splunkforwarder-8.0.3-a6754d8441bf-linux-2.6-amd64.deb
 				dpkg -i /opt/splunkforwarder-8.0.3-a6754d8441bf-linux-2.6-amd64.deb
 				/opt/splunkforwarder/bin/splunk enable boot-start --accept-license
@@ -13,6 +13,7 @@ select os in Debian_Ubuntu RHEL_CentOS; do
 				[tcpout:default-autolb-group]
 				server = 10.168.15.195:9997
 				[tcpout-server://10.168.15.195:9997]" >> /opt/splunkforwarder/etc/system/local/outputs.conf
+				/etc/init.d/splunk start
 				break
 				;;
 	    RHEL_CentOS)
@@ -26,6 +27,7 @@ select os in Debian_Ubuntu RHEL_CentOS; do
 				[tcpout:default-autolb-group]
 				server = 10.168.15.195:9997
 				[tcpout-server://10.168.15.195:9997]" >> /opt/splunkforwarder/etc/system/local/outputs.conf
+				systemctl start splunk
 				break
 				;;
 	    *)
